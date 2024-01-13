@@ -35,10 +35,53 @@
                                 <tr>
                                     <th scope='col'>Id</th>
                                     <th scope='col'>Ttitle</th>
-                                    <th scope='col'>Due Date</th>
-                                    <th scope='col'>Priority</th>
-                                    <th scope='col'>Project</th>
-                                    <th scope='col'>Current Status</th>
+                                    <th scope='col'>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Due Date
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                {% for task in object_list%}
+                                                <li><a class="dropdown-item" href="{% url 'due_date_filter' task.due_date %}">{{task.due_date}}</a></li>
+                                                {% endfor %}
+                                              {% comment %} <li><a class="dropdown-item" href="{% url 'project_wise_filter' 1%}">1</a></li> {% endcomment %}
+                                            </ul>
+                                          </div>
+                                    </th>
+                                    <th scope='col'>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Priority
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                              <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 1%}">1</a></li>
+                                              <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 2%}">2</a></li>
+                                              <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 3%}">3</a></li>
+                                              <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 4%}">4</a></li>
+                                              <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 5%}">5</a></li>
+                                              <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 6%}">6</a></li>
+                                              <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 7%}">7</a></li>
+                                              <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 8%}">8</a></li>
+                                            </ul>
+                                          </div>
+                                    </th>
+                                    <th scope='col'>
+                                        <div class="dropdown">
+                                                Project
+                                            
+                                    </th>
+                                    <th scope='col'>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Current Status
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                              <li><a class="dropdown-item" href="{% url 'status_wise_filter' 'to-do'%}">To Do</a></li>
+                                              <li><a class="dropdown-item" href="{% url 'status_wise_filter' 'on-going'%}">On Going</a></li>
+                                              <li><a class="dropdown-item" href="{% url 'status_wise_filter' 'completed'%}">Completed</a></li>
+                                            </ul>
+                                          </div>
+                                    </th>
                                     <th scope='col'>Action</th>
                                 </tr>
                             </thead>
