@@ -84,3 +84,20 @@ def due_date_filter(request, due_date=None):
     print( "slug",due_date,'data', data)
     return render(request,'show_task.html',{'form':form,'object_list':data})
 
+
+def edit_task(request, id):
+    post = Tasks.objects.get(pk=id) 
+    data = Tasks.objects.all()
+
+    task_form = Task_form(instance=post)
+    if request.method == 'POST':
+        task_form = Task_form(request.POST, instance=post)
+        if task_form.is_valid(): 
+            task_form.save()
+    return render(request,'show_task.html',{'form':task_form,'object_list':data})
+
+
+def delete_task(request, id):
+    post = Tasks.objects.get(pk=id) 
+    post.delete()
+    # return redirect('homepage')

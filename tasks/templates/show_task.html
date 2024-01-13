@@ -96,8 +96,12 @@
                                         <td>{{task.current_status}}</td>
                                        
                                         <td>
-                                            <button class='btn btn-danger'>Edit</button>
-                                            <button class='btn btn-warning'>Delete</button>
+                                            <button class='btn btn-danger'>
+                                                <a href="{% url 'edit_task' task.id%}">Edit</a>
+                                            </button>
+                                            <button class='btn btn-danger'>
+                                                <a href="{% url 'delete_task' task.id%}">Delete</a>
+                                            </button>
                                         </td>
                                     </tr>
                                 {% endfor %}
