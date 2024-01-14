@@ -15,6 +15,9 @@ urlpatterns = [
     # authientication
     path('/login',views.task_maker_login, name='task_maker_login') , 
     path('/register',views.task_maker_register, name='task_maker_register') , 
+
+    path('active/<uid64>/<token>/',views.activate, name='active') , 
+
     path('/logout',views.task_maker_logout, name='task_maker_logout') , 
 
 

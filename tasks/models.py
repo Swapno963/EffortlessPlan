@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from .constants import PRIORITYS, CURRENT_STATUS
 
 class Tasks(models.Model):
-    user = models.OneToOneField(User, related_name='user',on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='user',on_delete=models.CASCADE)
     title = models.CharField(max_length = 100)
     due_date = models.DateField()
     priority = models.CharField(max_length = 100,choices = PRIORITYS) 
