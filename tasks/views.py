@@ -6,6 +6,12 @@ from .models import Tasks
 from .forms import Task_form
 from django.http import HttpResponseRedirect,HttpResponse
 from django.shortcuts import redirect
+    
+from django.contrib import messages
+from .forms import RegisterForm
+from django.contrib.auth import logout,authenticate,login
+from django.contrib.auth.forms import AuthenticationForm
+
 # Create your views here.
 class Show_all_task(ListView):
     template_name = 'show_task.html'
@@ -34,7 +40,7 @@ class Show_all_task(ListView):
             return self.get(request,*args, **kwargs)
 
 
-
+# send user name 
 def priority_filter(request, priority=None):
     form = Task_form()
     if priority is not None:
@@ -49,7 +55,7 @@ def priority_filter(request, priority=None):
 
     data = Tasks.objects.all()
     print( "slug",priority,'data', data)
-    return render(request,'show_task.html',{'form':form,'object_list':data})
+    return render(request,'show_task.html',{'form':form,'object_list':data,'user':request.user})
 
 
 def status_filter(request, current_status=None):
@@ -101,3 +107,35 @@ def delete_task(request, id):
     post = Tasks.objects.get(pk=id) 
     post.delete()
     # return redirect('homepage')
+
+
+# register 
+def task_maker_register(request):
+    if request.method == 'POST':
+        form =RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = RegisterForm()
+    return render(request, 'authientication.html',{'form': form})
+
+# login
+def task_maker_login(request):
+    if request.method =='POST':
+        form =AuthenticationForm(request=request,data=request.POST)
+        if form.is_valid():
+            name =form.cleaned_data['username']
+            userpass =form.cleaned_data['password']
+            user = authenticate(username=name, password=userpass)
+            if user is not None:
+                login(request, user)
+                return redirect('home')  
+    else:
+        form = AuthenticationForm()
+    return render(request, 'authientication.html', {'form': form})
+
+# logout
+def task_maker_logout(request):
+    logout(request)
+    return redirect('home')
