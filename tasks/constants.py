@@ -10,7 +10,7 @@ PRIORITYS = (
 )
 
 CURRENT_STATUS = (
-    ('to-do','to-do'),
+    ('to-do(incomplete)','to-do(incomplete)'),
     ('on-going','on-going'),
     ('completed','completed'),
 )

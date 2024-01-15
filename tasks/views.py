@@ -32,7 +32,7 @@ def priority_filter(request, priority=None):
     form = Task_form()
     if priority is not None:
         data = Tasks.objects.filter(priority = priority)
-        print( "slug",priority,'data', data)
+        # print( "slug",priority,'data', data)
         return render(request,'show_task.html',{'form':form,'object_list':data,'data':without_filter_data})
     if request.method == 'POST':
         form = Task_form(request.POST)
@@ -48,8 +48,7 @@ def priority_filter(request, priority=None):
 
     data = Tasks.objects.all()
     print( "slug",priority,'data', data)
-    return render(request,'show_task.html',{'form':form,'object_list':data,'user':request.user})
-
+    return render(request,'show_task.html',{'form':form,'object_list':data,'user':request.user,'data':without_filter_data})
 
 def status_filter(request, current_status=None):
     without_filter_data = Tasks.objects.all()
@@ -113,11 +112,11 @@ def edit_task(request, id):
             send_email.send()
     return render(request,'show_task.html',{'form':task_form,'object_list':data})
 
-
 def delete_task(request, id):
     post = Tasks.objects.get(pk=id) 
     post.delete()
     return redirect('home')
+
 
 
 # register 

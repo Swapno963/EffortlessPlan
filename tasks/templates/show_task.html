@@ -5,26 +5,28 @@
 <div class="container h-100">
     <div class="my-5 p-5 bg-primary">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-12">
                 {% comment %} add task {% endcomment %}
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                       <h5 class="card-title bg-secondary p-3">Add New Todo 
-                        <span class='bg-primary rounded p-1'>
+                        <span class='bg-primary rounded-pill '>
                             {{user}}
                         </span>
                     </h5>
                       <form  method="post">
                         {% csrf_token %}
-                          {{form | crispy}}
-                          <button type='submit' class='btn btn-primary'>Add</button>
+                            {{form | crispy}}
+                            {% if user.is_authenticated %}
+                                <button type='submit' class='btn btn-primary'>Add</button>
+                            {% endif %}
                       </form>
 
                     </div>
                   </div>
             </div>
             {% comment %} shot task {% endcomment %}
-            <div class="col-md-8">
+            <div class="col-md-8 col-sm-12">
                 <div class="card p-2">
                     <table class="table table-striped ">
                         <thead>
@@ -37,7 +39,7 @@
                                             Due Date
                                         </button>
                                         <ul class="dropdown-menu">
-                                            {% for task in data%}
+                                            {% for task in data %}
                                             <li><a class="dropdown-item" href="{% url 'due_date_filter' task.due_date %}">{{task.due_date}}</a></li>
                                             {% endfor %}
                                           {% comment %} <li><a class="dropdown-item" href="{% url 'project_wise_filter' 1%}">1</a></li> {% endcomment %}
@@ -72,13 +74,17 @@
                                             Current Status
                                         </button>
                                         <ul class="dropdown-menu">
-                                          <li><a class="dropdown-item" href="{% url 'status_wise_filter' 'to-do'%}">To Do</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'status_wise_filter' 'to-do'%}">To Do(Incomplete)</a></li>
                                           <li><a class="dropdown-item" href="{% url 'status_wise_filter' 'on-going'%}">On Going</a></li>
                                           <li><a class="dropdown-item" href="{% url 'status_wise_filter' 'completed'%}">Completed</a></li>
                                         </ul>
                                       </div>
                                 </th>
-                                <th scope='col'>Action</th>
+                                <th scope='col'>Action 
+                                    <a class="btn btn-primary   " href="{% url 'home'%}">Remove Filter</a>
+
+                                </th>
+                            
                             </tr>
                         </thead>
                         <tbody>
@@ -92,12 +98,14 @@
                                     <td>{{task.current_status}}</td>
                                    
                                     <td>
-                                        <button class='btn btn-warning'>
-                                            <a class='text-decoration-none fw-bold text-white' href="{% url 'edit_task' task.id%}">Edit</a>
-                                        </button>
-                                        <button class='btn btn-danger my-1'>
-                                            <a class='text-decoration-none fw-bold text-white' href="{% url 'delete_task' task.id%}">Delete</a>
-                                        </button>
+                                        {% if user.is_authenticated %}
+                                            <button class='btn btn-warning'>
+                                                <a class='text-decoration-none fw-bold text-white' href="{% url 'edit_task' task.id%}">Edit</a>
+                                            </button>
+                                            <button class='btn btn-danger my-1'>
+                                                <a class='text-decoration-none fw-bold text-white' href="{% url 'delete_task' task.id%}">Delete</a>
+                                            </button>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}

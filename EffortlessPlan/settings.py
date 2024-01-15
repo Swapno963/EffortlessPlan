@@ -1,5 +1,7 @@
 from pathlib import Path
 import environ
+import dj_database_url
+
 env = environ.Env()
 environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -10,12 +12,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bgbo7z9(*!j%q*vd=z0!^hn47d!r5dnm3=x593m=_=la-s&ene'
+SECRET_KEY =  env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['https://effortless-plan.onrender.com','https://*.127.0.0.1']
+
 
 
 # Application definition
@@ -67,12 +71,22 @@ WSGI_APPLICATION = 'EffortlessPlan.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# render databse 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        # Feel free to alter this value to suit your needs.
+        default='postgres://effortlessplan_user:mAdssIfUCNONarL4W0txbNHjr93OZxHI@dpg-cmikf56n7f5s73a4ioug-a.oregon-postgres.render.com/effortlessplan',
+       
+    )
 }
+
 
 
 # Password validation
