@@ -108,8 +108,8 @@ class UserLoginApiView(APIView):
 class UserLogoutView(APIView):
     def get(self, request):
         # request.user.auth_token.delete()
-        logout(request)
-        return HttpResponse('logout')
+        logout(request);
+        return Response({'logout':'done'})
     # new ended
 
 
