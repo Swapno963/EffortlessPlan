@@ -4,6 +4,16 @@ To-Do App is an online task management platform built using Django. It is design
 
 ## Features
 
+ register = http://127.0.0.1:8000/register/
+ post data type = {
+    "username":"a",
+    "first_name":"a",
+    "last_name":"a",
+    "email":"swapnom@gmail.com",
+    "password":"12345678n",
+    "confirm_password":"12345678n"
+
+}
 ### User Authentication 
 
 - User registration, login, and logout system.
